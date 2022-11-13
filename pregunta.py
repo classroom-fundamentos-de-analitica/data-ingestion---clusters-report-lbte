@@ -43,7 +43,7 @@ def ingest_data():
   cols = {original:renamed for original, renamed in zip(df.columns, cols)}
   df.rename(columns = cols, inplace = True)
   df.porcentaje_de_palabras_clave = df.porcentaje_de_palabras_clave.str.replace(" %", "")
-  df.porcentaje_de_palabras_clave = df.porcentaje_de_palabras_clave.str.replace(",", ".")
+  df.porcentaje_de_palabras_clave = df.porcentaje_de_palabras_clave.str.replace(",", ".").astype(float)
   
 
   return df
