@@ -13,7 +13,7 @@ import pandas as pd
 import numpy as np
 
 def ingest_data():
-  df = pd.read_fwf(ruta, colspecs="infer", widths=[7, 11, 13, 300])
+  df = pd.read_fwf('./clusters_report.txt', colspecs="infer", widths=[7, 11, 13, 300])
   df.columns = columnas
   df = df.iloc[2:, :].reset_index()
   df.drop("index", inplace=True, axis='columns')
