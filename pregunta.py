@@ -34,7 +34,7 @@ def ingest_data():
   df.iloc[:,:-1].fillna(method = "ffill", inplace = True)
   df[df.columns[0]] = df[df.columns[0]].astype(int)
   non_last = df.columns[:-1]
-  df_corrected = df.groupby(df.columns[0])["Principales palabras clave"].apply(lambda x: ', '.join(x))
+  df_corrected = df.groupby(df.columns[0])["Principales palabras clave"].apply(lambda x: ' '.join(x))
   df_corrected[df.columns[0]] = np.arange(1, df.iloc[:, 0].max())
   df = df.merge(df_corrected, on=df.columns[0], how="left").drop_duplicates(non_last)
   df.drop("Principales palabras clave_x", inplace=True, axis=1)
@@ -44,6 +44,7 @@ def ingest_data():
   df.rename(columns = cols, inplace = True)
   df.porcentaje_de_palabras_clave = df.porcentaje_de_palabras_clave.str.replace(" %", "")
   df.porcentaje_de_palabras_clave = df.porcentaje_de_palabras_clave.str.replace(",", ".").astype(float)
+  df.principales_palabras_clave = df.principales_palabras_clave.str.replace("\s+"," ").apply(lambda x : x[:-1])
   
 
   return df
